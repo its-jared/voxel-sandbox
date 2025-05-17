@@ -598,6 +598,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy_fly_camera"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "73ccb54c744efdb0cd64a5b1334e5f35763eb5984ae7a76c4d1df61263c106a6"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
 name = "bevy_gilrs"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1457,30 +1466,6 @@ dependencies = [
  "futures-io",
  "futures-lite",
  "piper",
-]
-
-[[package]]
-name = "bracket-noise"
-version = "0.8.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f0b7443d0990c69db7a83f376f0101d684c20a911698e5f932bffbda2c8b08dd"
-dependencies = [
- "bracket-random",
-]
-
-[[package]]
-name = "bracket-random"
-version = "0.8.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "437be61484077b1ddb57002ce3c96b7d03cbf500b5d15157ee7e67e22332c39b"
-dependencies = [
- "getrandom 0.2.16",
- "js-sys",
- "lazy_static",
- "rand 0.8.5",
- "rand_xorshift",
- "regex",
- "wasm-bindgen",
 ]
 
 [[package]]
@@ -4327,8 +4312,8 @@ name = "voxel_sandbox"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "bevy_fly_camera",
  "bevy_voxel_world",
- "bracket-noise",
  "noise",
  "rand 0.9.1",
 ]
