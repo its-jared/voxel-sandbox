@@ -36,11 +36,17 @@ impl VoxelWorldConfig for MainLevel {
 }
 
 fn build_world() -> Box<dyn FnMut(IVec3) -> WorldVoxel + Send + Sync> {
-    let mut noise = HybridMulti::<Perlin>::new(1234);
-    noise.octaves = 5;
-    noise.frequency = 0.1;
-    noise.lacunarity = 2.8;
-    noise.persistence = 0.4;
+    let mut n1 = HybridMulti::<Perlin>::new(1234);
+    n1.octaves = 5;
+    n1.frequency = 0.1;
+    n1.lacunarity = 2.8;
+    n1.persistence = 0.4;
+
+    let mut n2 = HybridMulti::<Perlin>::new(1234);
+    n2.octaves = 5;
+    n2.frequency = 0.5;
+    n2.lacunarity = 2.8;
+    n2.persistence = 0.4;
 
     let mut cache = HashMap::<(i32, i32), f64>::new();
 
@@ -50,7 +56,8 @@ fn build_world() -> Box<dyn FnMut(IVec3) -> WorldVoxel + Send + Sync> {
         let is_ground = y < match cache.get(&(pos.x, pos.z)) {
             Some(sample) => *sample,
             None => {
-                let sample = noise.get([x / 1000.0, z / 1000.0]) * 50.0;
+                let sample1 = n2.get([x / 1000.0, z / 1000.0]);
+                let sample = n1.get([x * sample1, z * sample1]) * 10.0;
                 cache.insert((pos.x, pos.z), sample);
                 sample
             }
@@ -58,7 +65,8 @@ fn build_world() -> Box<dyn FnMut(IVec3) -> WorldVoxel + Send + Sync> {
 
         if is_ground {
             WorldVoxel::Solid(voxels::MOSS)
-        } else {
+        }
+        else {
             WorldVoxel::Air
         }
     })
