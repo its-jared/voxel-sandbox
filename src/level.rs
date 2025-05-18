@@ -38,7 +38,7 @@ impl VoxelWorldConfig for MainLevel {
 fn build_world() -> Box<dyn FnMut(IVec3) -> WorldVoxel + Send + Sync> {
     let mut noise = HybridMulti::<Perlin>::new(1234);
     noise.octaves = 5;
-    noise.frequency = 1.1;
+    noise.frequency = 0.1;
     noise.lacunarity = 2.8;
     noise.persistence = 0.4;
 
@@ -57,7 +57,7 @@ fn build_world() -> Box<dyn FnMut(IVec3) -> WorldVoxel + Send + Sync> {
         };
 
         if is_ground {
-            WorldVoxel::Solid(voxels:: MOSS)
+            WorldVoxel::Solid(voxels::MOSS)
         } else {
             WorldVoxel::Air
         }
